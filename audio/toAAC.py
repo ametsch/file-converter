@@ -1,0 +1,29 @@
+from os import system, name
+
+def file_extension(path: str) -> str:
+    return path.strip().split('.')[-1].lower()
+
+audio_input_extensions = ['mp3','wav','ogg','flac','aac','tco','rco','mp2','aptxhd','m2a','mpa','sbc',
+                    'msbc','thd','aa','m4a','mov','3gp','3g2','mj2','psp','m4b','ism','ismv','isma','f4v','aiff','tun','pcm','wma']
+
+input_file = ''
+output_file = ''
+
+isValidinput = False
+while not isValidinput:
+    input_file = input('Input file:  ')
+    if file_extension(input_file) in audio_input_extensions:
+        isValidinput = True
+isValidinput = False
+
+isValidinput = False
+while not isValidinput:
+    output_file = input('Output file:  ')
+    if file_extension(output_file) == 'aac':
+        isValidinput = True
+
+if name == 'nt':
+    ffmpeg_path = input('Path to ffmpeg.exe:  ')
+    system(rf'{ffmpeg_path} -i {input_file} {output_file}')
+elif name == 'posix':
+    system(rf'ffmpeg -i {input_file} {output_file}')
