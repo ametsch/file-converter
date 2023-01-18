@@ -1,4 +1,6 @@
 from os import system, name
+from sys import argv as args
+import json
 
 def file_extension(path: str) -> str:
     return path.strip().split('.')[-1].lower()
@@ -9,21 +11,19 @@ audio_input_extensions = ['mp3','wav','ogg','flac','aac','tco','rco','mp2','aptx
 input_file = ''
 output_file = ''
 
-isValidinput = False
-while not isValidinput:
-    input_file = input('Input file:  ')
-    if file_extension(input_file) in audio_input_extensions:
-        isValidinput = True
-isValidinput = False
+with open('paths.json', 'rt') as f:
+    paths = json.load(f)
 
-isValidinput = False
-while not isValidinput:
-    output_file = input('Output file:  ')
-    if file_extension(output_file) == 'aac':
-        isValidinput = True
+input_file = args[1]
+if file_extension(input_file) in audio_input_extensions:
+        pass
+else:
+    exit()
+output_file = args[2]
+if file_extension(output_file) == 'aac':
+        pass
+else:
+    exit()
 
-if name == 'nt':
-    ffmpeg_path = input('Path to ffmpeg.exe:  ')
-    system(rf'{ffmpeg_path} -i {input_file} {output_file}')
-elif name == 'posix':
-    system(rf'ffmpeg -i {input_file} {output_file}')
+ffmpeg_path = paths['ffmpeg']
+system(rf'{ffmpeg_path} -i {input_file} {output_file}')
