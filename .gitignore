@@ -3,3 +3,5 @@ base.py
 *.yuv
 *.264
 *.hevc
+*.h265
+ffmpeg.exe
