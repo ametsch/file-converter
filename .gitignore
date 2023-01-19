@@ -1,1 +1,5 @@
 base.py
+*.mp4
+*.yuv
+*.264
+*.hevc
